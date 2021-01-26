@@ -7,7 +7,7 @@ namespace CoronaTest.Core.Contracts
 {
     public interface IUnitOfWork : IAsyncDisposable
     {
-        IVerificationTokenRepository VerficationRepository { get; }
+        IVerificationTokenRepository VerificationTokenRepository { get; }
 
         Task<int> SaveChangesAsync();
         Task DeleteDatabaseAsync();

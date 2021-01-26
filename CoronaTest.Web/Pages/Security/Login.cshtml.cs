@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using CoronaTest.Core.Contracts;
+using CoronaTest.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -13,6 +14,7 @@ namespace CoronaTest.Web.Pages.Security
     public class LoginModel : PageModel
     {
         private readonly ISmsService _smsService;
+        private readonly IUnitOfWork _unitOfWork;
 
         [BindProperty]
         [Required(ErrorMessage = "Die {0} ist verpflichtend!")]
@@ -26,12 +28,13 @@ namespace CoronaTest.Web.Pages.Security
         [DisplayName("Handy-Nr")]
         public string Mobilnumber { get; set; }
 
-        public LoginModel(ISmsService smsService)
+        public LoginModel(ISmsService smsService, IUnitOfWork unitOfWork)
         {
             _smsService = smsService;
+            _unitOfWork = unitOfWork;
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
@@ -50,9 +53,12 @@ namespace CoronaTest.Web.Pages.Security
                 return Page();
             }
 
-            _smsService.SendSms(Mobilnumber, "Login erfolgreich!");
+            VerificationToken verificationToken = VerificationToken.NewToken();
+            await _unitOfWork.VerificationTokenRepository.AddAsync(verificationToken);
 
-            return RedirectToPage("/Security/Verification"/*, new { token = myNewToken.identifier }*/);
+            _smsService.SendSms(Mobilnumber, $"CoronaTest - Token: {verificationToken.Token}");
+
+            return RedirectToPage("/Security/Verification", new { token = verificationToken.Identifier});
         }
     }
 }
