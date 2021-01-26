@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>a942c0ae-4aed-438c-b55e-5a77c5b3ec04</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoronaTest.Core\CoronaTest.Core.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,30 @@
+﻿@page
+@model CoronaTest.Web.Pages.Security.LoginModel
+@{
+    ViewData["Title"] = "Login";
+
+}
+
+<form mehtod ="post">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+
+            <label asp-for="SocialSecurityNumber" class="control-label"></label>
+            <input asp-for="SocialSecurityNumber" class="form-control" />
+            <span asp-validation-for="SocialSecurityNumber"></span>
+
+        </div>
+
+        <div class="form-group col-md-6">
+
+            <label asp-for="Mobilnumber" class="control-label"></label>
+            <input asp-for="Mobilnumber" class="form-control" />
+            <span asp-validation-for="Mobilnumber"></span>
+
+        </div>
+
+    </div>
+
+    <input type="submit" value="Anmelden" class="btn btn-danger" />
+    <a class="btn btn-secondary" asp-page="Index">Zurück</a>
+</form>
