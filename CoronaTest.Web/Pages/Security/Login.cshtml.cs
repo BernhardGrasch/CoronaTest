@@ -16,7 +16,7 @@ namespace CoronaTest.Web.Pages.Security
 
         [BindProperty]
         [Required(ErrorMessage = "Die {0} ist verpflichtend!")]
-        [StringLength(10, ErrorMessage ="Die {0} genau 10 Zeichen lang sein!", MinimumLength = 10)]
+        [StringLength(10, ErrorMessage ="Die {0} muss genau 10 Zeichen lang sein!", MinimumLength = 10)]
         [DisplayName("SVNr")]
         public string SocialSecurityNumber { get; set; }
 
@@ -33,12 +33,12 @@ namespace CoronaTest.Web.Pages.Security
 
         public IActionResult OnPost()
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            if(SocialSecurityNumber != "0000080384")
+            if (SocialSecurityNumber != "0000080384")
             {
                 ModelState.AddModelError(nameof(SocialSecurityNumber), "Diese SVNr ist unbekannt");
                 return Page();
@@ -46,7 +46,7 @@ namespace CoronaTest.Web.Pages.Security
 
             if (Mobilnumber != "+436643500902")
             {
-                ModelState.AddModelError(nameof(Mobilnumber), "Diese Handy-Nr ist unbekannt i");
+                ModelState.AddModelError(nameof(Mobilnumber), "Diese Handy-Nr ist unbekannt!");
                 return Page();
             }
 
